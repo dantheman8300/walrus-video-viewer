@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ViewPage } from './pages/ViewPage';
+import { UploadPage } from './pages/UploadPage';
 import { createNetworkConfig, SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
 import { getFullnodeUrl } from '@mysten/sui/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -21,6 +22,7 @@ function App() {
 						<Header />
 						<Routes>
 							<Route path="/view/:id" element={<ViewPage />} />
+							<Route path="/upload" element={<UploadPage />} />
 						</Routes>
 					</Router>
 				</WalletProvider>

@@ -1,12 +1,12 @@
 import { ConnectModal, useCurrentAccount, useDisconnectWallet, useResolveSuiNSName } from "@mysten/dapp-kit"
 import { useEffect, useState } from "react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator  } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Trash, ArrowUpRight, Copy } from "lucide-react";
-
+import { Trash, ArrowUpRight, Copy, Upload } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function ConnectWalletButton({ fullWidth = false }: { fullWidth?: boolean }) {
-
+  const navigate = useNavigate();
   const account = useCurrentAccount();
   const { data: suiNSName } = useResolveSuiNSName(account?.address);
   const { mutate: disconnect } = useDisconnectWallet();
@@ -43,52 +43,44 @@ export function ConnectWalletButton({ fullWidth = false }: { fullWidth?: boolean
                   {/* <Image src={chevronDown} alt="Chevron Down" width={16} height={16} /> */}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align={alignment} className="flex flex-col gap-2">
-                <div className="w-full flex flex-row justify-start gap-2">
-                  {/* <Image src={ppIcon} alt="PP" className="rounded-full w-[40px] h-[40px]" /> */}
-                  <div className="flex flex-col items-start justify-start">
-                    <span>
-                      {suiNSName ? `${suiNSName.split('.sui')[0]}` : `${account.address.slice(0, 6)}...${account.address.slice(-4)}`}
-                    </span>
-                    {suiNSName && (
-                      <span className={`text-[#FFF] opacity-70 text-sm`}>
-                        {account.address.slice(0, 6)}...{account.address.slice(-4)}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-row justify-between gap-1">
-                  <Button
-                    variant="secondary"
-                    className="h-fit w-[92px] py-2 rounded-md flex flex-col items-center justify-center gap-1"
-                    onClick={() => navigator.clipboard.writeText(account.address)}
-                  >
-                    <Copy className="w-4 h-4" />
-                    <span>Copy</span>
-                  </Button>
-                  <a href={`https://suiscan.xyz/address/${account.address}`} target="_blank" rel="noopener noreferrer">
-                    <Button 
-                      variant="secondary"
-                      className="h-fit w-[92px] py-2 rounded-md flex flex-col items-center justify-center gap-1"
-                    >
-                      <ArrowUpRight className="w-4 h-4" />
-                      <span>Explorer</span>
-                    </Button>
+              <DropdownMenuContent align={alignment} className="w-56">
+                <DropdownMenuLabel className="text-sm font-medium">
+                  {suiNSName ? `${suiNSName.split('.sui')[0]}` : `${account.address.slice(0, 6)}...${account.address.slice(-4)}`}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="flex items-center gap-2"
+                  onClick={() => navigate('/upload')}
+                >
+                  <Upload className="w-4 h-4" />
+                  <span>Upload video</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => navigator.clipboard.writeText(account.address)}
+                  className="flex items-center gap-2"
+                >
+                  <Copy className="w-4 h-4" />
+                  <span>Copy Address</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href={`https://suiscan.xyz/address/${account.address}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <ArrowUpRight className="w-4 h-4" />
+                    <span>View on Explorer</span>
                   </a>
-                  <Button
-                    variant="destructive"                  
-                    className="h-fit w-[92px] py-2  text-[#FFF] rounded-md flex flex-col items-center justify-center gap-1"
-                    onClick={() => {
-                      disconnect();
-                      if (window.location.pathname === '/link') {
-                        window.location.href = '/connect';
-                      }
-                    }}
-                  >
-                    <Trash className="w-4 h-4" />
-                    <span>Disconnect</span>
-                  </Button>
-                </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    disconnect();
+                    if (window.location.pathname === '/link') {
+                      window.location.href = '/connect';
+                    }
+                  }}
+                  className="flex items-center gap-2 text-destructive focus:text-destructive"
+                >
+                  <Trash className="w-4 h-4" />
+                  <span>Disconnect</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
