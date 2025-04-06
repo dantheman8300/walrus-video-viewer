@@ -1,11 +1,14 @@
-import { Button } from "@/components/ui/button"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ViewPage } from './pages/ViewPage';
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      <Button>Click me</Button>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/view/:id" element={<ViewPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
