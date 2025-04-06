@@ -16,7 +16,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
 			<SuiClientProvider networks={networkConfig} defaultNetwork="mainnet">
-				<WalletProvider>
+				<WalletProvider autoConnect={true}>
 					<Router>
 						<Header />
 						<Routes>

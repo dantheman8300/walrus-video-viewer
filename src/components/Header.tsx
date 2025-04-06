@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { ConnectButton } from '@mysten/dapp-kit';
-
+import { ConnectWalletButton } from './ConnectWalletButton';
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const Header: React.FC = () => {
           </div>
         </form>
         <div className="flex-1 flex justify-end">
-          <ConnectButton />
+          <ConnectWalletButton />
         </div>
       </div>
     </header>
