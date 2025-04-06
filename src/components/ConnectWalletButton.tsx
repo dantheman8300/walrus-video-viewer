@@ -2,7 +2,7 @@ import { ConnectModal, useCurrentAccount, useDisconnectWallet, useResolveSuiNSNa
 import { useEffect, useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator  } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Trash, ArrowUpRight, Copy, Upload } from "lucide-react";
+import { Trash, ArrowUpRight, Copy, Upload, Video } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function ConnectWalletButton({ fullWidth = false }: { fullWidth?: boolean }) {
@@ -54,6 +54,13 @@ export function ConnectWalletButton({ fullWidth = false }: { fullWidth?: boolean
                 >
                   <Upload className="w-4 h-4" />
                   <span>Upload video</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="flex items-center gap-2"
+                  onClick={() => navigate('/myvideos')}
+                >
+                  <Video className="w-4 h-4" />
+                  <span>My Videos</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem

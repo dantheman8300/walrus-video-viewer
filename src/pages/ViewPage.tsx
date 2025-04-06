@@ -1,7 +1,8 @@
 import { useSuiClient } from '@mysten/dapp-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { blobIdToBase64 } from '../helpers/encode';
+import { getAggregatorUrl } from '@/helpers/aggregators';
 interface SuiObjectId {
   id: string;
 }
@@ -79,7 +80,7 @@ export function ViewPage() {
             <video
               className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg border-4 border-gray-200"
               controls
-              src={`https://aggregator.mainnet.walrus.mirai.cloud/v1/blobs/${blobId}`}
+              src={`${getAggregatorUrl()}/v1/blobs/${blobId}`}
             >
               Your browser does not support the video tag.
             </video>
@@ -92,28 +93,3 @@ export function ViewPage() {
     </div>
   );
 } 
-
-function blobIdToBase64(blobId: string): string {
-  // Convert the blobId string to a BigInt
-  let bigInt = BigInt(blobId);
-
-  // Initialize a Uint8Array of 32 bytes (256 bits) with zeros
-  let bytes = new Uint8Array(32);
-
-  // Convert the BigInt to bytes in little-endian order
-  for (let i = 0; i < 32; i++) {
-      bytes[i] = Number(bigInt & BigInt(0xFF));
-      bigInt >>= BigInt(8);
-  }
-
-  // Convert the bytes to a Buffer
-  const buffer = Buffer.from(bytes);
-
-  // Encode the Buffer to Base64
-  let base64 = buffer.toString('base64');
-
-  // Convert to URL-safe Base64 (replace '+' with '-', '/' with '_') and remove padding '='
-  base64 = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-
-  return base64;
-}
