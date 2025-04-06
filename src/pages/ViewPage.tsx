@@ -64,6 +64,8 @@ export function ViewPage() {
         const blobId = blobIdToBase64(object.data.content.fields.blob_id);
         console.log(blobId);
         setBlobId(blobId);
+      } else {
+        setBlobId(id);
       }
     }
     fetchObject();
@@ -74,6 +76,17 @@ export function ViewPage() {
       <h1 className="text-2xl font-bold mb-4">Viewing ID: {id}</h1>
       <p className="text-gray-600">This is a dynamic route page</p>
       <p className="text-gray-600">Blob ID: {blobId}</p>
+      {blobId && (
+        <div className="w-full max-w-2xl mt-4">
+          <video
+            className="w-full rounded-lg shadow-lg"
+            controls
+            src={`https://aggregator.mainnet.walrus.mirai.cloud/v1/blobs/${blobId}`}
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
     </div>
   );
 } 
