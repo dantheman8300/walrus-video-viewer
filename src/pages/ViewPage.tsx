@@ -72,21 +72,23 @@ export function ViewPage() {
   }, [id])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      <h1 className="text-2xl font-bold mb-4">Viewing ID: {id}</h1>
-      <p className="text-gray-600">This is a dynamic route page</p>
-      <p className="text-gray-600">Blob ID: {blobId}</p>
+    <div className="flex flex-col items-center justify-center min-h-svh p-4">
       {blobId && (
-        <div className="w-full max-w-2xl mt-4">
-          <video
-            className="w-full rounded-lg shadow-lg"
-            controls
-            src={`https://aggregator.mainnet.walrus.mirai.cloud/v1/blobs/${blobId}`}
-          >
-            Your browser does not support the video tag.
-          </video>
+        <div className="w-full max-w-4xl">
+          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <video
+              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg border-4 border-gray-200"
+              controls
+              src={`https://aggregator.mainnet.walrus.mirai.cloud/v1/blobs/${blobId}`}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       )}
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-500">ID: {id}</p>
+      </div>
     </div>
   );
 } 
