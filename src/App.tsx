@@ -7,6 +7,8 @@ import { getFullnodeUrl } from '@mysten/sui/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Header from './components/Header';
 import '@mysten/dapp-kit/dist/index.css';
+import { Analytics } from "@vercel/analytics/react"
+
 
 // Config options for the networks you want to connect to
 const { networkConfig } = createNetworkConfig({
@@ -20,6 +22,7 @@ function App() {
 			<SuiClientProvider networks={networkConfig} defaultNetwork="mainnet">
 				<WalletProvider autoConnect={true}>
 					<Router>
+						<Analytics />
 						<Header />
 						<Routes>
 							<Route path="/view/:id" element={<ViewPage />} />
